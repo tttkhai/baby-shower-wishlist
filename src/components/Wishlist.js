@@ -27,10 +27,19 @@ export const WishList = () => {
         setWishList([...wishList, newItem])
     }
 
+    const deleteWishlist = (id) => {
+        setWishList(wishList.filter((item) => id !== item.id))
+    }
+
     return <div className='container'>
         <div className='row center'>
             <WishlistForm mode="add" handleSubmit={addWishlist}/>
-            <WishlistDetail wishList={wishList} updateWishlist={updateWishlist} toggleEdit={toggleEdit}/>
+            <WishlistDetail
+                wishList={wishList}
+                updateWishlist={updateWishlist}
+                toggleEdit={toggleEdit}
+                deleteWishlist={deleteWishlist}
+            />
         </div>
     </div>
 }
