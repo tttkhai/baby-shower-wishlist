@@ -1,9 +1,11 @@
 import React from 'react'
 
-function Button() {
-  return (
-    <button>Edit</button>
-  )
+function Button({buttonText, onClick, item}) {
+    const handleClick = () => {
+        onClick(item);
+    };
+
+    return <button onClick={handleClick}>{buttonText}</button>;
 }
 
 export default Button

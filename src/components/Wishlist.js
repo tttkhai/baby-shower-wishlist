@@ -5,16 +5,15 @@ import WishlistForm from "./WishlistForm";
 export const WishList = () => {
     const [ wishList, setWishList ] = useState([])
 
-    const updateWishlist = (wishListId, value) =>{
-        if(wishList.value) {
-            return;
-        }
-        const updateWishlist = wishList.find((item) => wishListId === item.id)
-        if (updateWishlist) {
-            updateWishlist.value = value 
-            setWishList(wishList)
-            console.log(`updateWishlist ${JSON.stringify(wishList)}`)
-        }
+    const updateWishlist = (input, previous) =>{
+        setWishList(wishList.map((item) => previous.id === item.id ? 
+            {...item, value: input, isEdit: false } :
+            {...item, isEdit: false}
+        ))
+    }
+
+    const toggleEdit = (id) => {
+        setWishList(wishList.map((item) => id === item.id ? { ...item, isEdit: !item.isEdit } : item))
     }
 
     const addWishlist = (item) => {
@@ -22,17 +21,16 @@ export const WishList = () => {
             return;
         }
 
-        const id = wishList.length ? 1: wishList.length + 1;
-        const newItem = {id, value: item}
+        const id = wishList.length ? wishList.length + 1: 1;
+        const newItem = {id, value: item, isEdit: false}
 
         setWishList([...wishList, newItem])
-        console.log(`addWishlist ${JSON.stringify(wishList)}`)
     }
 
     return <div className='container'>
         <div className='row center'>
-            <WishlistForm addWishlist={addWishlist} />
-            <WishlistDetail wishList={wishList} updateWishlist={updateWishlist} />
+            <WishlistForm mode="add" handleSubmit={addWishlist}/>
+            <WishlistDetail wishList={wishList} updateWishlist={updateWishlist} toggleEdit={toggleEdit}/>
         </div>
     </div>
 }
