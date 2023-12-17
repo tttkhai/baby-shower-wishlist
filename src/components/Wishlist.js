@@ -6,6 +6,11 @@ export const WishList = () => {
     const [ wishList, setWishList ] = useState([])
 
     const updateWishlist = (input, previous) =>{
+        if(!input) {
+            setWishList(wishList.map((item) => previous.id === item.id ? { ...item, isEdit: !item.isEdit } : item))
+            return
+        }
+ 
         setWishList(wishList.map((item) => previous.id === item.id ? 
             {...item, value: input, isEdit: false } :
             {...item, isEdit: false}

@@ -13,11 +13,11 @@ function WishlistDetail({wishList, updateWishlist, toggleEdit, deleteWishlist}) 
 
     return (wishList.map((item) => 
         item.isEdit ? 
-            <div><WishlistForm mode="edit" handleSubmit={updateItem} itemToEdit={item}/></div> :
+            <div key={item.id}><WishlistForm mode="edit" handleSubmit={updateItem} itemToEdit={item}/></div> :
             <div key={item.id}>
                 {item.value}
-                <Button buttonText="Edit" onClick={() => toggleEdit(item.id)}/>
-                <Button buttonText="Delete" onClick={() => deleteItem(item.id)}/>
+                <Button buttonText="Edit" onClick={toggleEdit} item={item.id}/>
+                <Button buttonText="Delete" onClick={deleteItem} item={item.id}/>
             </div>
     ));
 }
